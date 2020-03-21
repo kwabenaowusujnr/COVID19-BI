@@ -1,0 +1,687 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>COVID19 BI v 1.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Le styles -->
+
+
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/loader-style.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+
+    <!--<link rel="stylesheet" href="assets/jqvmap.css">-->
+
+    <link rel="stylesheet" type="text/css" href="assets/js/progress-bar/number-pb.css">
+
+
+
+    <style type="text/css">
+
+        canvas#canvas4 {
+            position: relative;
+            top: 20px;
+        }
+
+        .li-country {
+            margin-top: 2px !important;
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+            padding-left: 10px !important;
+            margin-right: 10px !important;
+        }
+
+        #mn-topmenu {
+            margin: 10px;
+            /*height: 500px;*/
+            overflow-x: hidden;
+            overflow-y: scroll;
+            height: calc(100vh - 60px);
+        }
+
+        .paper-wrap, #paper-middle {
+            min-height: calc(100vh - 60px) !important;
+        }
+
+        b#ConfirmedCases, b#NewTotalRecovered, b#NewTotalDeaths {
+            font-weight: normal;
+            font-size: 50px;
+        }
+
+        .value b {
+            font-size: 14px;
+            font-style: normal;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            font-weight: normal;
+            margin: 0px 0px 0px 10px;
+        }
+
+        #lbl-country {
+            color: black;
+            font-weight: bold;
+            font-size: 45px;
+        }
+
+        #country-flag {
+            width: 45px;
+            text-align: center;
+            margin-top: -30px;
+        }
+
+        .ccName {
+            letter-spacing: 0px !important;
+            font-size: 10px !important;
+            background-color: transparent !important;
+            /* margin-top: -23px; */
+            text-transform: none !important;
+        }
+    </style>
+
+
+
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    <!-- Fav and touch icons -->
+    <!--<link rel="shortcut icon" href="assets/ico/minus.png">-->
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
+    <!-- TOP NAVBAR -->
+    <nav role="navigation" class="navbar navbar-static-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" class="navbar-toggle" type="button">
+                    <span class="entypo-menu"></span>
+                </button>
+                <button class="navbar-toggle toggle-menu-mobile toggle-left" type="button">
+                    <span class="entypo-list-add"></span>
+                </button>
+
+
+
+
+                <div id="logo-mobile" class="visible-xs">
+                    <h1>
+                        <span>v1.2</span>
+                    </h1>
+                </div>
+
+            </div>
+
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+
+                    <li>
+                        <a href="#"><i data-toggle="tooltip" data-placement="bottom" title="Help" style="font-size:20px;" class="icon-help tooltitle"></i></a>
+                    </li>
+
+                </ul>
+                <div id="nt-title-container" class="navbar-left running-text visible-lg">
+                    <ul class="date-top">
+                        <li class="entypo-calendar" style="margin-right:5px"></li>
+                        <li id="Date"></li>
+
+
+                    </ul>
+
+                    <ul id="digital-clock" class="digital">
+                        <li class="entypo-clock" style="margin-right: 5px"></li>
+                        <li class="hour"></li>
+                        <li>:</li>
+                        <li class="min"></li>
+                        <li>:</li>
+                        <li class="sec"></li>
+                        <li class="meridiem"></li>
+                    </ul>
+                    <!--<ul id="nt-title">
+                        <li>
+                            <i class="wi-day-lightning"></i>&#160;&#160;Berlin&#160;
+                            <b>85</b><i class="wi-fahrenheit"></i>&#160;; 15km/h
+                        </li>
+                        <li>
+                            <i class="wi-day-lightning"></i>&#160;&#160;Yogyakarta&#160;
+                            <b>85</b><i class="wi-fahrenheit"></i>&#160;; Tonight- 72 °F (22.2 °C)
+                        </li>
+
+                        <li>
+                            <i class="wi-day-lightning"></i>&#160;&#160;Sttugart&#160;
+                            <b>85</b><i class="wi-fahrenheit"></i>&#160;; 15km/h
+                        </li>
+
+                        <li>
+                            <i class="wi-day-lightning"></i>&#160;&#160;Muchen&#160;
+                            <b>85</b><i class="wi-fahrenheit"></i>&#160;; 15km/h
+                        </li>
+
+                        <li>
+                            <i class="wi-day-lightning"></i>&#160;&#160;Frankurt&#160;
+                            <b>85</b><i class="wi-fahrenheit"></i>&#160;; 15km/h
+                        </li>
+
+                    </ul>-->
+                </div>
+
+                <!--<ul style="margin-right:0;" class="nav navbar-nav navbar-right">
+
+                    <li class="hidden-xs">
+                        <a class="toggle-left" href="#">
+                            <span style="font-size:20px;" class="entypo-list-add"></span>
+                        </a>
+                    </li>
+                </ul>-->
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- /END OF TOP NAVBAR -->
+    <!-- SIDE MENU -->
+    <div id="skin-select">
+        <div id="logo">
+            <h1>
+                COVID19 BI
+                <span>v1.0</span><br />
+                <span class="ccName">Powered By CrossTech Consults GH</span>
+            </h1>
+        </div>
+
+        <a id="toggle" class="hidden">
+            <span class="entypo-menu"></span>
+        </a>
+        <div class="dark">
+            <form action="#">
+                <span>
+                    <input type="text" name="search" value="" class="search rounded id_search" placeholder="Search Countries..." autofocus />
+                </span>
+            </form>
+        </div>
+
+        <div class="search-hover">
+            <form id="demo-2">
+                <input type="search" placeholder="Search Countries..." class="id_search">
+            </form>
+        </div>
+
+
+
+
+        <div class="skin-part">
+            <div id="tree-wrap">
+                <div class="side-bar">
+
+                    <ul class="topnav menu-left-nest" id="mn-topmenu">
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END OF SIDE MENU -->
+    <!--  PAPER WRAP -->
+    <div class="wrap-fluid">
+        <div class="container-fluid paper-wrap bevel tlbr">
+
+
+
+
+
+            <!-- CONTENT -->
+            <!--TITLE -->
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-window"></i>
+                            <span>
+                                Dashboard
+                            </span>
+                        </h2>
+
+                    </div>
+
+                    <div class="col-sm-9">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="tittle-middle-header">
+
+                            <div class="alert">
+
+                                <span class="tittle-alert entypo-info-circled"></span>
+                                Welcome back,&nbsp;
+                                <strong>Last Checked</strong>&nbsp;&nbsp; <span id="sp_lastchecked"></span>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--/ TITLE -->
+            <!-- BREADCRUMB -->
+            <ul id="breadcrumb">
+                <li>
+                    <span class="entypo-home"></span>
+                </li>
+                <li>
+                    <i class="fa fa-lg fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="#" title="Sample page 1">Home</a>
+                </li>
+                <li>
+                    <i class="fa fa-lg fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="#" title="Sample page 1">Dashboard</a>
+                </li>
+                <li class="pull-right">
+                    <div class="input-group input-widget">
+
+                        <input style="border-radius:15px" type="text" placeholder="Search..." class="form-control">
+                    </div>
+                </li>
+            </ul>
+
+            <!-- END OF BREADCRUMB -->
+
+
+
+
+
+
+            <div id="paper-middle">
+                <div class="row">
+                    <div id="vmap" class="col-md-8 col-sm-12" style="height: calc(80vh - 80px);"></div>
+                    <div class="col-md-4 col-sm-12" style="height: calc(88vh - 80px);">
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <img id="country-flag" /><span id="lbl-country"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="order" id="orderClose">
+                                    <div class="headline ">
+                                        <h3>
+                                            <span>
+                                                <i class="fa fa-edit"></i>&#160;&#160;Confirmed Cases
+                                            </span>
+                                        </h3>
+                                        <div class="titleClose">
+                                            <a href="#orderClose" class="gone">
+                                                <span class="entypo-cancel"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="value">
+                                        <span>
+                                            <i class="fa fa-plus-circle fa-2x"></i>
+                                        </span>
+                                        <b id="ConfirmedCases"></b>
+                                        <b>Patients</b>
+
+                                    </div>
+
+                                    <div class="progress-tinny">
+                                        <div style="width: 10%" class="bar"></div>
+                                    </div>
+                                    <div class="profit-line">
+                                        <i class="fa fa-caret-down fa-lg"></i>&#160;&#160;Total case per 1M Population  <span class="caseper1m" style="font-weight:bold;"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="revenue" id="revenueClose">
+                                    <div class="headline ">
+
+                                        <h3>
+                                            <span>
+                                                <i class="fa fa-ambulance"></i>&#160;&#160;Total Recovered
+                                            </span>
+                                        </h3>
+
+                                        <div class="titleClose">
+                                            <a href="#revenueClose" class="gone">
+                                                <span class="entypo-cancel"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="value">
+                                        <span class="pull-left">
+                                            <i class="entypo-gauge gauge-position"></i>
+                                        </span>
+                                        <b id="NewTotalRecovered"></b>
+                                        <b>Patients</b>
+
+                                    </div>
+                                    <div class="progress-tinny">
+                                        <div style="width: 25%" class="bar"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="profit" id="profitClose">
+                                    <div class="headline ">
+                                        <h3>
+                                            <span>
+                                                <i class="fa fa-ambulance"></i>&#160;&#160;Total Deaths
+                                            </span>
+                                        </h3>
+                                        <div class="titleClose">
+                                            <a href="#profitClose" class="gone">
+                                                <span class="entypo-cancel"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="value">
+                                        <span class="pull-left">
+                                            <i class="entypo-clock clock-position"></i>
+                                        </span>
+                                        <b id="NewTotalDeaths"></b>
+                                        <b>Patients</b>
+
+
+                                    </div>
+
+                                    <div class="progress-tinny">
+                                        <div style="width: 50%" class="bar"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <!--<div id="mapContainer"></div>-->
+            </div>
+
+            <!--  DEVICE MANAGER -->
+            <div class="content-wrap">
+
+            </div>
+            <!--  / DEVICE MANAGER -->
+
+
+        </div>
+    </div>
+    <!--  END OF PAPER WRAP -->
+    <!-- RIGHT SLIDER CONTENT -->
+    <div class="sb-slidebar sb-right">
+        <div class="right-wrapper">
+            <div class="row">
+                <h3>
+                    <span><i class="entypo-gauge"></i>&nbsp;&nbsp;MAIN WIDGET</span>
+                </h3>
+                <div class="col-sm-12">
+
+                    <div class="widget-knob">
+                        <span class="chart" style="position:relative" data-percent="86">
+                            <span class="percent"></span>
+                        </span>
+                    </div>
+                    <div class="widget-def">
+                        <b>Distance traveled</b>
+                        <br>
+                        <i>86% to the check point</i>
+                    </div>
+
+                    <div class="widget-knob">
+                        <span class="speed-car" style="position:relative" data-percent="60">
+                            <span class="percent2"></span>
+                        </span>
+                    </div>
+                    <div class="widget-def">
+                        <b>The average speed</b>
+                        <br>
+                        <i>30KM/h avarage speed</i>
+                    </div>
+
+
+                    <div class="widget-knob">
+                        <span class="overall" style="position:relative" data-percent="25">
+                            <span class="percent3"></span>
+                        </span>
+                    </div>
+                    <div class="widget-def">
+                        <b>Overall result</b>
+                        <br>
+                        <i>30KM/h avarage Result</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:0;" class="right-wrapper">
+            <div class="row">
+                <h3>
+                    <span><i class="entypo-chat"></i>&nbsp;&nbsp;CHAT</span>
+                </h3>
+                <div class="col-sm-12">
+                    <span class="label label-warning label-chat">Online</span>
+                    <ul class="chat">
+                        <li>
+                            <a href="#">
+                                <span>
+                                    <img alt="" class="img-chat img-circle" src="http://api.randomuser.me/portraits/thumb/men/20.jpg">
+                                </span><b>Dave Junior</b>
+                                <br><i>Last seen : 08:00 PM</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>
+                                    <img alt="" class="img-chat img-circle" src="http://api.randomuser.me/portraits/thumb/men/21.jpg">
+                                </span><b>Kenneth Lucas</b>
+                                <br><i>Last seen : 07:21 PM</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>
+                                    <img alt="" class="img-chat img-circle" src="http://api.randomuser.me/portraits/thumb/men/22.jpg">
+                                </span><b>Heidi Perez</b>
+                                <br><i>Last seen : 05:43 PM</i>
+                            </a>
+                        </li>
+
+
+                    </ul>
+
+                    <span class="label label-chat">Offline</span>
+                    <ul class="chat">
+                        <li>
+                            <a href="#">
+                                <span>
+                                    <img alt="" class="img-chat img-offline img-circle" src="http://api.randomuser.me/portraits/thumb/men/23.jpg">
+                                </span><b>Dave Junior</b>
+                                <br><i>Last seen : 08:00 PM</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>
+                                    <img alt="" class="img-chat img-offline img-circle" src="http://api.randomuser.me/portraits/thumb/women/24.jpg">
+                                </span><b>Kenneth Lucas</b>
+                                <br><i>Last seen : 07:21 PM</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>
+                                    <img alt="" class="img-chat img-offline img-circle" src="http://api.randomuser.me/portraits/thumb/men/25.jpg">
+                                </span><b>Heidi Perez</b>
+                                <br><i>Last seen : 05:43 PM</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>
+                                    <img alt="" class="img-chat img-offline img-circle" src="http://api.randomuser.me/portraits/thumb/women/25.jpg">
+                                </span><b>Kenneth Lucas</b>
+                                <br><i>Last seen : 07:21 PM</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>
+                                    <img alt="" class="img-chat img-offline img-circle" src="http://api.randomuser.me/portraits/thumb/men/26.jpg">
+                                </span><b>Heidi Perez</b>
+                                <br><i>Last seen : 05:43 PM</i>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- END OF RIGHT SLIDER CONTENT-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.js"></script>
+    <script src="assets/js/progress-bar/src/jquery.velocity.min.js"></script>
+    <script src="assets/js/progress-bar/number-pb.js"></script>
+    <script src="assets/js/progress-bar/progress-app.js"></script>
+
+
+
+    <!-- MAIN EFFECT -->
+    <script type="text/javascript" src="assets/js/preloader.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/javascript" src="assets/js/load.js"></script>
+    <script type="text/javascript" src="assets/js/moment.min.js"></script>
+    <script type="text/javascript" src="assets/js/underscore-min.js"></script>
+
+
+
+
+    <script type="text/javascript" src="assets/jquery.vmap.js"></script>
+    <script type="text/javascript" src="assets/maps/jquery.vmap.world.js"></script>
+
+
+    <script type="text/javascript" src="assets/js/main.js"></script>
+
+    <!-- GAGE -->
+
+
+    <script type="text/javascript" src="assets/js/chart/jquery.flot.js"></script>
+    <script type="text/javascript" src="assets/js/chart/jquery.flot.resize.js"></script>
+    <script type="text/javascript" src="assets/js/chart/realTime.js"></script>
+    <script type="text/javascript" src="assets/js/speed/canvasgauge-coustom.js"></script>
+    <script type="text/javascript" src="assets/js/countdown/jquery.countdown.js"></script>
+
+
+
+    <script src="assets/js/jhere-custom.js"></script>
+
+    <script>
+        //var gauge4 = new Gauge("canvas4", {
+        //    'mode': 'needle',
+        //    'range': {
+        //        'min': 0,
+        //        'max': 90
+        //    }
+        //});
+        //gauge4.draw(Math.floor(Math.random() * 90));
+        //var run = setInterval(function () {
+        //    gauge4.draw(Math.floor(Math.random() * 90));
+        //}, 3500);
+    </script>
+
+
+    <script type="text/javascript">
+        /* Javascript
+         *
+         * See http://jhere.net/docs.html for full documentation
+         */
+        $(window).on('load', function () {
+            $('#mapContainer').jHERE({
+                center: [52.500556, 13.398889],
+                type: 'smart',
+                zoom: 10
+            }).jHERE('marker', [52.500556, 13.338889], {
+                icon: 'assets/img/marker.png',
+                anchor: {
+                    x: 12,
+                    y: 32
+                },
+                click: function () {
+                    alert('Hallo from Berlin!');
+                }
+            })
+                .jHERE('route', [52.711, 13.011], [52.514, 13.453], {
+                    color: '#FFA200',
+                    marker: {
+                        fill: '#86c440',
+                        text: '#'
+                    }
+                });
+        });
+    </script>
+    <script type="text/javascript">
+        var output, started, duration, desired;
+
+        // Constants
+        duration = 5000;
+        desired = '50';
+
+        // Initial setup
+        output = $('#speed');
+        started = new Date().getTime();
+
+        // Animate!
+        animationTimer = setInterval(function () {
+            // If the value is what we want, stop animating
+            // or if the duration has been exceeded, stop animating
+            if (output.text().trim() === desired || new Date().getTime() - started > duration) {
+                console.log('animating');
+                // Generate a random string to use for the next animation step
+                output.text('' + Math.floor(Math.random() * 60)
+
+                );
+
+            } else {
+                console.log('animating');
+                // Generate a random string to use for the next animation step
+                output.text('' + Math.floor(Math.random() * 120)
+
+                );
+            }
+        }, 5000);
+    </script>
+    <script type="text/javascript">
+        $('#getting-started').countdown('2015/01/01', function (event) {
+            $(this).html(event.strftime(
+
+                '<span>%M</span>' + '<span class="start-min">:</span>' + '<span class="start-min">%S</span>'));
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>
